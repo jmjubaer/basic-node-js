@@ -15,7 +15,12 @@ server.on("request", (req, res) => {
         res.write(buffer);
     });
     readStream.on("end", () => {
+        res.statusCode(200);
         res.end("file read ended successfully");
+    });
+    readStream.on("error", (error) => {
+        res.statusCode(500)
+        res.end("Something is wrong");
     });
 
     // res.end("Server is running at http://localhost:5000")
